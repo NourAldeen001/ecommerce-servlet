@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="style.css">
+		<title>Login</title>
+	</head>
+	<body>
+		<div class="top-bar">Amazon</div>
+ 
+		<div class="container">
+			<h1>Login</h1>
+	 
+			<div class="alert-error" id="loginError"></div>
+	 
+			<form action="login" method="post">
+				<div class="field">
+					<label for="username">Username</label>
+					<input type="text" id="username" name="username" required>
+				</div>
+	 
+				<div class="field">
+					<label for="password">Password</label>
+					<input type="password" id="password" name="password" required>
+				</div>
+				
+				<div class="field">
+					<input type="checkbox" id="rememberMe" name="rememberMe">
+					<label for="rememberMe">Remember Me</label>
+				</div>
+	 
+				<button type="submit" >Login</button>
+			</form>
+	 
+			<p class="link-row">New here? <a href="SignUp.html">Create an account</a></p>
+			
+			<script>
+				var params = new URLSearchParams(window.location.search);
+				var message = params.get('error');
+				if (message) {
+					var banner = document.getElementById('loginError');
+					banner.textContent = message;
+					banner.classList.add('is-visible');
+				}
+			</script>
+			
+		</div>
+	</body>
+</html>
