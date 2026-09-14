@@ -8,8 +8,8 @@ public class LoginRequest {
 	private String password;
 	
 	public LoginRequest(String username, String password) {
-		this.username = username;
-		this.password = password;
+		setUsername(username);
+		setPassword(password);
 	}
 	
 	public void setUsername(String username) {
