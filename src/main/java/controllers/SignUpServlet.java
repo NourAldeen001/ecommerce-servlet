@@ -14,6 +14,7 @@ import exceptions.DataAccessException;
 import exceptions.DuplicateKeyException;
 import exceptions.EmailAlreadyExistsException;
 import exceptions.UsernameAlreadyExistsException;
+import services.CustomerService;
 
 /**
  * Servlet implementation class SignUpServlet
@@ -22,7 +23,7 @@ public class SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
        
-    private AuthService authService;
+    private CustomerService customerService;
     
     public SignUpServlet() {
         super();
@@ -33,7 +34,7 @@ public class SignUpServlet extends HttpServlet {
 	public void init() throws ServletException {
 		ConnectionFactory factory = (ConnectionFactory) getServletContext()
 				.getAttribute("connectionFactory");
-		authService = new AuthService(factory);
+		customerService = new CustomerService(factory);
 	}
 
 	/**
@@ -62,15 +63,12 @@ public class SignUpServlet extends HttpServlet {
 					request.getParameter("confirmPassword")
 			);
 			
-			authService.signUp(signUpRequest);
+			customerService.signUp(signUpRequest);
 			
 			RequestDispatcher requestDispatch = request.getRequestDispatcher("Login.html");
 			requestDispatch.forward(request, response);
 		}
 		catch (IllegalArgumentException ex) {
-			response.sendRedirect("SignUp.html?error=" + java.net.URLEncoder.encode(ex.getMessage(), "UTF-8"));
-		}
-		catch (EmailAlreadyExistsException | UsernameAlreadyExistsException | DuplicateKeyException ex) {
 			response.sendRedirect("SignUp.html?error=" + java.net.URLEncoder.encode(ex.getMessage(), "UTF-8"));
 		}
 		catch (DataAccessException ex) {

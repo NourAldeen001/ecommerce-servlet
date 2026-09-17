@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import entities.Customer;
@@ -68,7 +70,7 @@ public class CustomerDao {
 	public Optional<Customer> findById(Long id) {
 		String query = """ 
 						SELECT c.id, c.name, c.email, c.phone, c.address,
-						 u.id, u.username, u.role
+						 c.user_id, u.username, u.role
 						FROM customers c
 						JOIN users u  
 						ON u.id = c.user_id
@@ -91,7 +93,7 @@ public class CustomerDao {
 		
 		String query = """ 
 				SELECT c.id, c.name, c.email, c.phone, c.address,
-				 u.id, u.username, u.role
+				 c.user_id, u.username, u.role
 				FROM customers c
 				JOIN users u  
 				ON u.id = c.user_id
@@ -126,7 +128,25 @@ public class CustomerDao {
 			throw new DataAccessException("Database operation failed when execute existsByUsername", ex);
 		}
 	}
-		
+	
+	public List<Customer> findAll() {
+		String query = """
+				SELECT
+				 c.id, c.name, c.email, c.phone, c.address,
+				 u.role, u.username, c.user_id
+				FROM customers c
+				JOIN users u  
+				ON u.id = c.user_id """;
+		try(PreparedStatement statement = connection.prepareStatement(query)) {
+			try(ResultSet resultSet = statement.executeQuery()) {
+				return mapToList(resultSet);
+			}
+			
+		}
+		catch (SQLException ex) {
+			throw new DataAccessException("Database operation failed when execute findAll", ex);
+		}
+	}
 	
 	public Customer mapToCustomer(ResultSet resultSet) throws SQLException {
 		Customer customer = new Customer();
@@ -145,5 +165,34 @@ public class CustomerDao {
 		return customer;
 		
 	}
+	
+	protected List<Customer> mapToList(ResultSet rs) throws SQLException {
+		List<Customer> customers = new ArrayList<>();
+		while(rs.next()) {
+			customers.add(mapToCustomer(rs));
+		}
+		return customers;
+	}
 
+	public List<Customer> findByRole(Role role) {
+		String query = """
+				SELECT c.id, c.name, c.email, c.phone, c.address,
+				u.role, u.username, u.id as user_id,
+				FROM customers c
+				JOIN users u
+				ON u.id = c.user_id
+				WHERE role = ?
+				""";
+
+		try(PreparedStatement statement = connection.prepareStatement(query)) {
+			statement.setString(1, role.toString());
+			try(ResultSet resultSet = statement.executeQuery()) {
+				return mapToList(resultSet);
+			}
+
+		}
+		catch (SQLException ex) {
+			throw new DataAccessException("Database operation failed when execute findByUsername", ex);
+		}
+	}
 }

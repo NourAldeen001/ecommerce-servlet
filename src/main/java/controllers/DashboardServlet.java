@@ -34,8 +34,14 @@ public class DashboardServlet extends HttpServlet {
 		String username = (String) session.getAttribute("userUsernameLoggedIn");
 		String role = (String) session.getAttribute("userRole");
 		out.print("<h1>Welcome In Dashboard, " + username + " -- " + role + "</h1>");
-		
-		out.print("<a href='logout'>Logout</a>");
+		out.println("<a href='orders'>View Orders</a>");
+		out.print("<br/>");
+		out.println("<a href='admins'>View Admins</a>");
+		out.print("<br/>");
+		out.println("<a href='customers'>View Customers</a>");
+		out.print("<br/>");
+		out.println("<a href='logout'>Logout</a>");
+		out.print("<br/>");
 	}
 
 	/**
