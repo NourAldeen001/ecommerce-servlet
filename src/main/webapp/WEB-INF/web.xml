@@ -13,15 +13,15 @@
   </welcome-file-list>
   <context-param>
     <param-name>DB-URL</param-name>
-    <param-value>jdbc:mysql://localhost:3306/your_db</param-value>
+    <param-value>jdbc:mysql://localhost:3307/ecommerce_db</param-value>
   </context-param>
   <context-param>
     <param-name>DB-USER</param-name>
-    <param-value>your_user</param-value>
+    <param-value>root</param-value>
   </context-param>
   <context-param>
     <param-name>DB-PASS</param-name>
-    <param-value>your_pass</param-value>
+    <param-value>123456</param-value>
   </context-param>
   <servlet>
     <servlet-name>Signup</servlet-name>

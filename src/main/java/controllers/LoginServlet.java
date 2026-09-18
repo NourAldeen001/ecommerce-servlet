@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
 						response.sendRedirect(request.getContextPath() + "/admin/dashboard");
 					}
 					else {
-						response.sendRedirect(request.getContextPath() + "/home");
+						response.sendRedirect("/view/ShowProducts");
 					}
 					return;
 				}
@@ -139,7 +139,7 @@ public class LoginServlet extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/admin/dashboard");
 			}
 			else {
-				response.sendRedirect(request.getContextPath() + "/home");
+				response.sendRedirect(request.getContextPath() + "/ShowProducts");
 			}
 			
 		}
