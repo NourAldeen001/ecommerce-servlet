@@ -68,7 +68,7 @@ public class SignUpServlet extends HttpServlet {
 			RequestDispatcher requestDispatch = request.getRequestDispatcher("Login.html");
 			requestDispatch.forward(request, response);
 		}
-		catch (IllegalArgumentException ex) {
+		catch (IllegalArgumentException | EmailAlreadyExistsException | UsernameAlreadyExistsException | DuplicateKeyException ex) {
 			response.sendRedirect("SignUp.html?error=" + java.net.URLEncoder.encode(ex.getMessage(), "UTF-8"));
 		}
 		catch (DataAccessException ex) {
