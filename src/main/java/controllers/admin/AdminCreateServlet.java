@@ -15,7 +15,7 @@ import services.CustomerService;
 
 import java.io.IOException;
 
-@WebServlet(name="AdminAdminUpdate", urlPatterns = {"/admin/admins/create"})
+@WebServlet(name="AdminAdminCreate", urlPatterns = {"/admin/admins/create"})
 public class AdminCreateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

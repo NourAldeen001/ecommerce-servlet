@@ -3,7 +3,13 @@ package dto;
 import entities.Role;
 
 public class CustomerResponse {
-	
+	private String username;
+	private long id;
+	private String phone;
+	private String name;
+	private String email;
+	private String address;
+
 	public CustomerResponse(long id, String name, String email, String address, String phone, String username) {
 		this.id = id;
 		this.name = name;
@@ -12,14 +18,9 @@ public class CustomerResponse {
 		this.phone = phone;
 		this.username = username;
 	}
-	private String username;
 	public String getUsername() {
 		return username;
 	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	private long id;
 	public long getId() {
 		return id;
 	}
@@ -35,8 +36,5 @@ public class CustomerResponse {
 	public String getAddress() {
 		return address;
 	}
-	private String phone;
-	private String name;
-	private String email;
-	private String address;
+
 }

@@ -3,7 +3,11 @@ package dto;
 import java.math.BigDecimal;
 
 public class OrderItemResponse {
-	
+	private long id;
+	private int quantity;
+	private BigDecimal price;
+
+
 	public long getId() {
 		return id;
 	}
@@ -16,9 +20,7 @@ public class OrderItemResponse {
 		return price;
 	}
 
-	private long id;
-	private int quantity;
-	private BigDecimal price;
+
 	
 	public OrderItemResponse(long productId, int quantity, BigDecimal price) {
 		this.quantity = quantity;

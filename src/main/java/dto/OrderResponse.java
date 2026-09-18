@@ -7,7 +7,14 @@ import java.util.List;
 import entities.OrderStatus;
 
 public class OrderResponse {
-	
+	private long id;
+	private CustomerResponse customer;
+	private BigDecimal totalAmount;
+	private OrderStatus status;
+	private LocalDateTime date;
+	private List<OrderItemResponse> orderItems;
+
+
 	public long getId() {
 		return id;
 	}
@@ -37,11 +44,6 @@ public class OrderResponse {
 	}
 	
 	
-	private long id;
-	private CustomerResponse customer;
-	private BigDecimal totalAmount;
-	private OrderStatus status;
-	private LocalDateTime date;
-	private List<OrderItemResponse> orderItems;
+
 
 }

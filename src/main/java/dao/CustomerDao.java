@@ -192,7 +192,7 @@ public class CustomerDao {
 
 		}
 		catch (SQLException ex) {
-			throw new DataAccessException("Database operation failed when execute findByUsername", ex);
+			throw new DataAccessException("Database operation failed when execute findByRole", ex);
 		}
 	}
 }

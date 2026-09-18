@@ -3,6 +3,12 @@ package entities;
 import java.math.BigDecimal;
 
 public class OrderItem {
+	private long id;
+	private int quantity;
+	private BigDecimal price;
+	private long productId;
+	private long orderId;
+
 	public OrderItem(int quantity, BigDecimal price, long orderId, long productId) {
 		this.quantity = quantity;
 		this.price = price;
@@ -27,11 +33,7 @@ public class OrderItem {
 	public BigDecimal getPrice() {
 		return price;
 	}
-	private long id;
-	private int quantity;
-	private BigDecimal price;
-	private long productId;
-	private long orderId;
+
 
     public long getProductId() {
         return productId;
