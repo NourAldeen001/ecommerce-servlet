@@ -9,9 +9,9 @@ import java.util.List;
 
 import entities.Product;
 
-public class ProductDao implements ProductDaoInterface {
+public class ProductDao  {
 
-	@Override
+	
 	public List<Product> findAllProducts(ConnectionFactory connectionFactory) {
 		ArrayList<Product> products=new ArrayList<>();
 		try {
@@ -39,7 +39,7 @@ public class ProductDao implements ProductDaoInterface {
 		return products;
 	}
 
-	@Override
+	
 	public List<Product> findProductByName(String name,ConnectionFactory connectionFactory) {
 		List<Product> products=new ArrayList<>();
 		
@@ -69,7 +69,7 @@ public class ProductDao implements ProductDaoInterface {
 		return products;
 	}
 
-	@Override
+	
 	public List<Product> findProductsByCategory(int categoryId,ConnectionFactory connectionFactory) {
 		List<Product> products=new ArrayList<>();
 		
@@ -98,7 +98,7 @@ public class ProductDao implements ProductDaoInterface {
 		return products;
 	}
 
-	@Override
+	
 	public Product getProductDetails(int productId,ConnectionFactory connectionFactory) {
 		Product products=new Product();
 		try {

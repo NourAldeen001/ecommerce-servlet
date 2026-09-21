@@ -9,9 +9,9 @@ import java.util.List;
 
 import dto.Category;
 
-public class CategoryDao implements CategoryDaoInterface{
+public class CategoryDao {
 
-	@Override
+
 	public List<Category> getAllCategories(ConnectionFactory connectionFactory) {
 		List<Category> categories=new ArrayList<>();
 		try {
