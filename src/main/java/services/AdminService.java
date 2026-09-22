@@ -80,7 +80,7 @@ public class AdminService {
             }
         }
         catch (SQLException ex) {
-            throw new DataAccessException("Registration Failed", ex);
+            throw new DataAccessException("Failed to delete admin", ex);
         }
     }
 
