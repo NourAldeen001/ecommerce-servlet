@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Create Admin</title>
+</head>
+<body>
+<div class="top-bar">Amazon</div>
+
+<div class="container">
+    <h1>Create an admin account</h1>
+
+    <div class="alert-error" id="signupError"></div>
+
+    <form action="create" method="post">
+
+        <div class="field">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+
+        <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <span class="hint">At least 8 characters, with an uppercase letter, a lowercase letter, and a symbol.</span>
+        </div>
+
+        <div class="field">
+            <label for="confirmPassword">Confirm password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+        </div>
+
+        <button type="submit">Create Admin</button>
+    </form>
+
+    <script>
+        var params = new URLSearchParams(window.location.search);
+        var message = params.get('error');
+        if (message) {
+            var banner = document.getElementById('signupError');
+            banner.textContent = message;
+            banner.classList.add('is-visible');
+        }
+    </script>
+
+</div>
+</body>
+</html>
