@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="style.css">
+		<title>SignUp</title>
+	</head>
+	<body>
+		<div class="top-bar">Amazon</div>
+ 
+		<div class="container">
+			<h1>Create an account</h1>
+	 
+			<div class="alert-error" id="signupError"></div>
+	 
+			<form action="signup" method="post">
+				<div class="field">
+					<label for="email">Email</label>
+					<input type="email" id="email" name="email" required>
+				</div>
+	 
+				<div class="field">
+					<label for="username">Username</label>
+					<input type="text" id="username" name="username" required>
+				</div>
+				
+				<div class="field">
+					<label for="name">name</label>
+					<input type="text" id="name" name="name" required>
+				</div>
+	 
+				<div class="field">
+					<label for="phone">Phone number</label>
+					<input type="text" id="phone" name="phone" placeholder="+1 234 567 8901" required>
+				</div>
+				
+				<div class="field">
+					<label for="address">Address</label>
+					<input type="text" id="address" name="address" required>
+				</div>
+				
+				<div class="field">
+					<label for="password">Password</label>
+					<input type="password" id="password" name="password" required>
+					<span class="hint">At least 8 characters, with an uppercase letter, a lowercase letter, and a symbol.</span>
+				</div>
+	 
+				<div class="field">
+					<label for="confirmPassword">Confirm password</label>
+					<input type="password" id="confirmPassword" name="confirmPassword" required>
+				</div>
+	 
+				<button type="submit">Sign up</button>
+			</form>
+	 
+			<p class="link-row">Already have an account? <a href="login">Login</a></p>
+			
+			<script>
+				var params = new URLSearchParams(window.location.search);
+				var message = params.get('error');
+				if (message) {
+					var banner = document.getElementById('signupError');
+					banner.textContent = message;
+					banner.classList.add('is-visible');
+				}
+			</script>
+			
+		</div>
+	</body>
+</html>
