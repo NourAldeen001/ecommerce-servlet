@@ -2,7 +2,7 @@ package entities;
 
 public class Product {
 	
-	private int id;
+	private long id;
 	private int categoryId;
 	private String name;
 	private String description;
@@ -14,7 +14,7 @@ public class Product {
 	public Product() {
 		super();
 	}
-	public Product(int id, int categoryId, String name, String description, double price, int stock, byte[] image) {
+	public Product(long id, int categoryId, String name, String description, double price, int stock, byte[] image) {
 		super();
 		this.id = id;
 		this.categoryId = categoryId;
@@ -24,10 +24,10 @@ public class Product {
 		this.stock = stock;
 		this.image = image;
 	}
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public int getCategoryId() {
@@ -66,7 +66,6 @@ public class Product {
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
-	
 	
 
 }

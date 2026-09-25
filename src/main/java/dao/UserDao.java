@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import entities.Role;
@@ -107,16 +109,56 @@ public class UserDao {
 			throw new DataAccessException("Database operation failed when execute existsByUsername", ex);
 		}
 	}
+
+	public void delete(long id) {
+
+		String query = "DELETE FROM users WHERE id = ?";
+
+		try(PreparedStatement statement = connection.prepareStatement(query)) {
+			statement.setLong(1, id);
+			int rowsAffected = statement.executeUpdate();
+			if (rowsAffected != 1) {
+				throw new SQLException("Could not delete user");
+			}
+		}
+		catch (SQLException ex) {
+			throw new DataAccessException("Database operation failed when execute delete", ex);
+		}
+	}
+
+	public List<User> findByRole(Role role) {
+		String query = "SELECT id, username, NULL AS password , role FROM users WHERE role = ?";
+
+		try(PreparedStatement statement = connection.prepareStatement(query)) {
+			statement.setString(1, role.name());
+			try(ResultSet resultSet = statement.executeQuery()) {
+				return mapToList(resultSet);
+			}
+		}
+		catch (SQLException ex) {
+			throw new DataAccessException("Database operation failed when execute findByRole", ex);
+		}
+	}
 		
-	
+
 	public User mapToUser(ResultSet resultSet) throws SQLException {
 		User user = new User();
 		user.setId(resultSet.getLong("id"));
 		user.setUsername(resultSet.getString("username"));
-		user.setPassword(resultSet.getString("password"));
+		if (resultSet.getString("password") != null) {
+			user.setPassword(resultSet.getString("password"));
+		}
 		user.setRole(Role.valueOf(resultSet.getString("role")));
 		return user;
 		
+	}
+
+	private List<User> mapToList(ResultSet rs) throws SQLException {
+		List<User> users = new ArrayList<>();
+		while(rs.next()) {
+			users.add(mapToUser(rs));
+		}
+		return users;
 	}
 
 }
