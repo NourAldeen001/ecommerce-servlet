@@ -7,8 +7,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import services.AuthService;
+import services.CustomerService;
+
 import java.io.IOException;
 import dao.ConnectionFactory;
+import dto.CustomerResponse;
 import dto.LoginRequest;
 import entities.Role;
 import entities.User;
@@ -23,6 +26,7 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private AuthService authService;
+	private CustomerService customerService;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -38,6 +42,13 @@ public class LoginServlet extends HttpServlet {
    		ConnectionFactory factory = (ConnectionFactory) getServletContext()
    				.getAttribute("connectionFactory");
    		authService = new AuthService(factory);
+   		customerService = new CustomerService(factory);
+   	}
+   	
+   	private void startCustomerSession(HttpSession session, User user) {
+   		CustomerResponse customer = customerService.findByUserId(user.getId());
+   		session.setAttribute("customerId", customer.getId());
+   		session.setAttribute("customerName", customer.getName());
    	}
 
 	/**
@@ -72,7 +83,8 @@ public class LoginServlet extends HttpServlet {
 						response.sendRedirect(request.getContextPath() + "/admin/dashboard");
 					}
 					else {
-						response.sendRedirect("/view/ShowProducts");
+						startCustomerSession(session, user);
+						response.sendRedirect(request.getContextPath() + "/home");
 					}
 					return;
 				}
@@ -139,7 +151,8 @@ public class LoginServlet extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/admin/dashboard");
 			}
 			else {
-				response.sendRedirect(request.getContextPath() + "/ShowProducts");
+				startCustomerSession(session, user);
+				response.sendRedirect(request.getContextPath() + "/home");
 			}
 			
 		}
