@@ -14,7 +14,6 @@ import exceptions.UsernameAlreadyExistsException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 public class CustomerService {
 
@@ -39,6 +38,17 @@ public class CustomerService {
         try (Connection connection = connFactory.getConnection()) {
             CustomerDao customerDao = new CustomerDao(connection);
             Customer customer = customerDao.findById(id)
+                    .orElseThrow(() -> new CustomerNotFoundException());
+            return mapToDto(customer);
+        } catch (SQLException e) {
+            throw new DataAccessException("Database Error. Could not get customer", e);
+        }
+    }
+    
+    public CustomerResponse findByUserId(long userId) {
+        try (Connection connection = connFactory.getConnection()) {
+            CustomerDao customerDao = new CustomerDao(connection);
+            Customer customer = customerDao.findByUserId(userId)
                     .orElseThrow(() -> new CustomerNotFoundException());
             return mapToDto(customer);
         } catch (SQLException e) {

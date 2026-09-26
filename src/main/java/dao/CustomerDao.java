@@ -109,7 +109,31 @@ public class CustomerDao {
 			
 		}
 		catch (SQLException ex) {
-			throw new DataAccessException("Database operation failed when execute findByUsername", ex);
+			throw new DataAccessException("Database operation failed when execute findByEmail", ex);
+		}
+	}
+	
+	public Optional<Customer> findByUserId(Long userId) {
+		
+		String query = """ 
+				SELECT c.id, c.name, c.email, c.phone, c.address,
+				 c.user_id, u.username, u.role
+				FROM customers c
+				JOIN users u  
+				ON u.id = c.user_id
+				WHERE c.user_id = ?
+				""";
+		
+		try(PreparedStatement statement = connection.prepareStatement(query)) {
+			statement.setLong(1, userId);
+			try(ResultSet resultSet = statement.executeQuery()) {
+				if(resultSet.next()) return Optional.of(mapToCustomer(resultSet));
+				return Optional.empty();
+			}
+			
+		}
+		catch (SQLException ex) {
+			throw new DataAccessException("Database operation failed when execute findByUserId", ex);
 		}
 	}
 	
@@ -125,7 +149,7 @@ public class CustomerDao {
 			
 		}
 		catch (SQLException ex) {
-			throw new DataAccessException("Database operation failed when execute existsByUsername", ex);
+			throw new DataAccessException("Database operation failed when execute existsByEmail", ex);
 		}
 	}
 	
