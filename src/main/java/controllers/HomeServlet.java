@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * Servlet implementation class HomeServlet
@@ -28,24 +27,23 @@ public class HomeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		PrintWriter out = response.getWriter();
-		
+				
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("userUsernameLoggedIn");
-		String role = (String) session.getAttribute("userRole");
-		out.print("<h1>Welcome, " + username + " -- " + role + "</h1>");
+		String customerName = (String) session.getAttribute("customerName");
 		
-		out.print("<a href='logout'>Logout</a>");
+		request.setAttribute("username", username);
+		request.setAttribute("customerName", customerName);	
+		
+		request.getRequestDispatcher("/view/Home.jsp")
+		.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
-		
-		
+		doGet(request, response);
 	}
 
 }
